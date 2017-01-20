@@ -9,6 +9,7 @@ class Pet
     @rest = 10
     @age = 0
     @happiness = 5
+    @volosatost = 3
   end
 
   def help
@@ -19,8 +20,16 @@ class Pet
     puts 'Health ' + @health.to_s
     puts 'Hunger ' + @hunger.to_s
     puts 'Sleep ' + @rest.to_s
-    puts 'Happiness ' + @happiness.to_s
+    if @happiness <= 0 
+      puts 'Your pet hates your guts.' + ' Happiness ' + @happiness.to_s
+      else puts 'Happiness ' + @happiness.to_s
+    end
     puts 'Age ' + @age.to_s + ' days'
+    if @volosatost.zero?
+      puts 'Your pet is fucking bold'
+    elsif @volosatost >= 10
+      puts 'Your pet has too much hair, if u didn`t do something he will eat it'
+    end
   end
 
   def stab
@@ -33,8 +42,10 @@ class Pet
     @health += 2 if @health < 9
     @hunger += 2
     @happiness += 1
+    @volosatost += 1
     time_pass(1, 2)
     overfed if @hunger >= 10
+    hurt if @volosatost >= 10
   end
 
   def rest # time_pass looping me
@@ -42,8 +53,11 @@ class Pet
     @hunger -= 2
     @happiness -= 2
     @time -= 3
+    @rest += 2
+    @volosatost += 1
     # time_pass(3, 0)
     day_pass if @time <= 0
+    hurt if @volosatost >= 10
     hurt if @hunger <= 0
     random
   end
@@ -52,6 +66,7 @@ class Pet
     puts 'You decided to waste some time with your pet playing some games'
     @hunger -= 2
     @happiness += 3
+    @volosatost += 1
     time_pass(3, 3)
   end
 
@@ -63,6 +78,7 @@ class Pet
     puts 'You have took your pet for a walk and wasted some time'
     @hunger -= 2
     @happiness += 1
+    @volosatost += 1
     time_pass(3, 3)
   end
 
@@ -74,6 +90,7 @@ class Pet
     rest if @rest <= 0
     day_pass if @time <= 0
     hurt if @hunger <= 0
+    hurt if @volosatost >= 10
   end
 
   def day_pass
@@ -100,14 +117,20 @@ class Pet
     abort("#{name} is dead.")
   end
 
+  def cut
+    @volosatost -= 3
+  end
+
   def random
     x = rand(1000)
     if x < 1 then puts 'Unlucky your pet died. He got a heart attack'; death
     elsif x < 10 then puts 'You have found the Gates of Hell,
       the mood got better'; @happiness += 10
-    elsif x < 100 then puts 'Your pet have a good dream'; @happiness += 2
+    elsif x < 100 then puts 'Your pet had a good dream'; @happiness += 2
     elsif x < 200 then puts 'You forgot to close the window and
       your pet catch a cold'; hurt
+    elsif x < 300 then puts 'Your pet found and eaten some drugs hidden in
+       the stash, he is too hairy for now'; @volosatost += 10
     end
   end
 end
@@ -120,14 +143,15 @@ puts "You can now use 'help' for the list of commands"
 loop do
   i = gets.chomp
   case i
-  when 'feed' then petik.feed
-  when 'stab' then petik.stab
-  when 'stat' then petik.status
-  when 'rest' then petik.rest
-  when 'walk' then petik.walk
-  when 'play' then petik.play
-  when 'kill' then petik.kill
-  when 'help' then petik.help
+  when 'feed'   then petik.feed
+  when 'stab'   then petik.stab
+  when 'status' then petik.status
+  when 'rest'   then petik.rest
+  when 'walk'   then petik.walk
+  when 'play'   then petik.play
+  when 'kill'   then petik.kill
+  when 'help'   then petik.help
+  when 'cut'    then petik.cut
   else puts "Wrong input. Try typing with lower case or enter 'help' for help"
   end
 end
