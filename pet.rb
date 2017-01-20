@@ -9,7 +9,7 @@ class Pet
     @rest = 10
     @age = 0
     @happiness = 5
-    @volosatost1 = 3
+    @volosatost = 3
   end
 
   def help
@@ -25,9 +25,9 @@ class Pet
       else puts 'Happiness ' + @happiness.to_s
     end
     puts 'Age ' + @age.to_s + ' days'
-    if @volosatost1.zero?
+    if @volosatost.zero?
       puts 'Your pet is fucking bold'
-    elsif @volosatost1 >= 10
+    elsif @volosatost >= 10
       puts 'Your pet has too much hair, if u didn`t do something he will eat it'
     end
   end
@@ -42,10 +42,10 @@ class Pet
     @health += 2 if @health < 9
     @hunger += 2
     @happiness += 1
-    @volosatost1 += 1
+    @volosatost += 1
     time_pass(1, 2)
     overfed if @hunger >= 10
-    hurt if @volosatost1 >= 10
+    hurt if @volosatost >= 10
   end
 
   def rest # time_pass looping me
@@ -54,10 +54,10 @@ class Pet
     @happiness -= 2
     @time -= 3
     @rest += 2
-    @volosatost1 += 1
+    @volosatost += 1
     # time_pass(3, 0)
     day_pass if @time <= 0
-    hurt if @volosatost1 >= 10
+    hurt if @volosatost >= 10
     hurt if @hunger <= 0
     random
   end
@@ -66,7 +66,7 @@ class Pet
     puts 'You decided to waste some time with your pet playing some games'
     @hunger -= 2
     @happiness += 3
-    @volosatost1 += 1
+    @volosatost += 1
     time_pass(3, 3)
   end
 
@@ -78,7 +78,7 @@ class Pet
     puts 'You have took your pet for a walk and wasted some time'
     @hunger -= 2
     @happiness += 1
-    @volosatost1 += 1
+    @volosatost += 1
     time_pass(3, 3)
   end
 
@@ -90,7 +90,7 @@ class Pet
     rest if @rest <= 0
     day_pass if @time <= 0
     hurt if @hunger <= 0
-    hurt if @volosatost1 >= 10
+    hurt if @volosatost >= 10
   end
 
   def day_pass
@@ -118,7 +118,7 @@ class Pet
   end
 
   def cut
-    @volosatost1 -= 3
+    @volosatost -= 3
   end
 
   def random
@@ -130,7 +130,7 @@ class Pet
     elsif x < 200 then puts 'You forgot to close the window and
       your pet catch a cold'; hurt
     elsif x < 300 then puts 'Your pet found and eaten some drugs hidden in
-       the stash, he is too hairy for now'; @volosatost1 += 10
+       the stash, he is too hairy for now'; @volosatost += 10
     end
   end
 end
