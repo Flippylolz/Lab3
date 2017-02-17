@@ -155,3 +155,4 @@ loop do
   else puts "Wrong input. Try typing with lower case or enter 'help' for help"
   end
 end
+# Добавить конкатенацию строк
